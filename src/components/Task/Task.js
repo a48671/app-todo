@@ -6,19 +6,34 @@ import {Wrapper, Close, Checkbox, Title} from './styled';
 export default class Task extends PureComponent {
 
   static propTypes = {
-    title: PropTypes.string
+    title: PropTypes.string,
+    checked: PropTypes.bool,
+    clickToCheckboxHandler: PropTypes.func,
+    clickToRemoveHandler: PropTypes.func
 };
 
 static defaultProps = {
-    title: ''
+    title: '',
+    checked: false,
+    clickToCheckboxHandler: () => null,
+    clickToRemoveHandler: () => null
 };
 
   render() {
-    const {title} = this.props;
+    const {
+      title, 
+      checked, 
+      clickToCheckboxHandler, 
+      id, 
+      clickToRemoveHandler
+    } = this.props;
     
     return (
         <Wrapper>
-            <Checkbox>
+            <Checkbox 
+              checked={checked}
+              onClick={() => clickToCheckboxHandler(id)}
+            >
               <svg
                 viewBox="0 0 16 12"
                 fill="none"
@@ -31,8 +46,8 @@ static defaultProps = {
                 />
               </svg>
             </Checkbox>
-            <Title>{title}</Title>
-            <Close />
+            <Title checked={checked}>{title}</Title>
+            <Close onClick={() => clickToRemoveHandler(id)}/>
         </Wrapper>
     )
   }
