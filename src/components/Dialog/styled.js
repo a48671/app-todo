@@ -1,0 +1,45 @@
+import styled from 'styled-components';
+
+export const Wrapper = styled.div`
+    display: block;
+    box-size: border-box;
+    width: 350px;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 2px solid #3c3c3c;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+`;
+
+export const Header = styled.div`
+    padding: 10px 20px;
+    font-face: sans-serif;
+    font-size: 27px;
+    text-transformation: uppercase;
+    color: #fff;
+    background-color: #3c3c3c;
+`;
+
+export const Content = styled.div`
+    min-height: 300px;
+`;
+
+export const Footer = styled.div`
+    display: flex;
+    padding: 10px 20px;
+    font-face: sans-serif;
+    color: #fff;
+    background-color: #3c3c3c;
+    justify-content: space-between;
+`;
+
+export const Button = styled.div`
+    padding: 10px 20px;
+    font-face: sans-serif;
+    color: #3c3c3c;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #aeaeae;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+`;
