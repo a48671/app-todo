@@ -20,6 +20,12 @@ class App extends Component {
     }
   }
 
+  componentDidUpdate() {
+    // save array with tasks in localStorage 
+    const {tasks} = this.state;
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
   render() {
 
     const clickToRemoveHandler = (id) => {
@@ -91,9 +97,6 @@ class App extends Component {
         })
       );
     };
-
-    // save array with tasks in localStorage 
-    localStorage.setItem('tasks', JSON.stringify(tasks));
 
     return (
       <Wrapper>
