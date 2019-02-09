@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import TextareaAutosize from 'react-autosize-textarea';
+
 import {
   Wrapper,
   Close,
   Checkbox,
-  Input,
 } from './styled';
-import { isNullOrUndefined } from 'util';
 
 export default class Task extends PureComponent {
 
@@ -29,15 +29,6 @@ export default class Task extends PureComponent {
       clickToRemoveHandler: () => null
   };
 
-  state = {
-    isEdit: false
-  }
-
-  componentWillMount(){
-    const {title} = this.props;
-    if(title === '') this.setState({isEdit: true});
-  }
-
   render() {
     const {
       index, 
@@ -45,12 +36,8 @@ export default class Task extends PureComponent {
       checked, 
       clickToCheckboxHandler, 
       clickToRemoveHandler,
-      addTaskConfirmHandler,
       onChangeTaskHandler
     } = this.props;
-
-    const {isEdit} = this.state;
-
 
 
     const clickToEditHandler = () => {
@@ -58,15 +45,6 @@ export default class Task extends PureComponent {
         isEdit: true
       });
     };
-
-    const onClickConfirmHandler = () => {
-      const {value} = this.state;
-      const {id} = this.props;
-      addTaskConfirmHandler(value, id);
-      this.setState({
-        isEdit: false
-      });
-    }
     
     return (
       <Wrapper>
@@ -86,7 +64,8 @@ export default class Task extends PureComponent {
             />
           </svg>
         </Checkbox>
-        <Input 
+
+        <TextareaAutosize
           placeholder="Input your new task" 
           value={title}
           onChange={e => onChangeTaskHandler(e, index)}

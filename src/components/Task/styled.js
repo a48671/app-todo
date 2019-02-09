@@ -8,6 +8,20 @@ export const Wrapper = styled.div`
     &:nth-child(even) {
         background-color: #e4e2e2;
     }
+    textarea {
+        display: inline-block;
+        vertical-align: middle;
+        width: calc(100% - 35px);
+        color: #333;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        font-size: 16px;
+        resize: none;
+        &:focus {
+            color: #000;
+        }
+    }
 `;
     
 export const Close = styled.div`
@@ -73,39 +87,4 @@ export const Checkbox = styled.div`
             fill: ${props => props.checked ? '#fff' : '#9c9b9b'};
         }
     }
-`;
-
-export const Input = styled.input`
-    display: inline-block;
-    vertical-align: middle;
-    width: calc(100% - 35px);
-    color: #333;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    font-size: 18px;
-    &:focus {
-        color: #000;
-    }
-`;
-
-export const Buttons = styled.div`
-    padding: 10px 20px;
-`;
-
-export const Button = styled.div`
-    display: block;
-    padding: 7px 20px 6px;
-    font-family: sans-serif;
-    color: #3c3c3c;
-    background-color: #fff;
-    border-radius: 3px;
-    border: 1px solid #aeaeae;
-    box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    margin: 0 0 0 auto;
-    width: 100px;
-    text-align: center;
-    opacity: ${props => props.value ? '1' : '0.3'};
-    ${props => props.value ? '' : 'pointer-events: none'};
 `;
