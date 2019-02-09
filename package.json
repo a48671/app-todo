@@ -115,6 +115,7 @@
     ]
   },
   "devDependencies": {
+    "react-autosize-textarea": "^6.0.0",
     "styled-components": "^4.1.3"
   }
 }
