@@ -58,7 +58,7 @@ export const Edit = styled.svg`
     position: absolute;
     width: 18px;
     top: 0;
-    right: 40px;
+    right: 20px;
     bottom: 0;
     left: auto;
     margin: auto 0;
@@ -105,13 +105,14 @@ export const Title = styled.div`
     max-width: calc(100% - 26px);
     color: ${props => props.checked ? 'green' : '#333'}
     font-size: 18px;
+    overflow: hidden;
 `;
 
 export const Input = styled.input`
     display: inline-block;
     vertical-align: middle;
     padding: 0 0 0 10px;
-    max-width: calc(100% - 26px);
+    width: calc(100% - 26px);
     color: #333;
     background-color: transparent;
     outline: none;
@@ -125,7 +126,7 @@ export const Buttons = styled.div`
 
 export const Button = styled.div`
     display: block;
-    padding: 6px 20px;
+    padding: 7px 20px 6px;
     font-family: sans-serif;
     color: #3c3c3c;
     background-color: #fff;

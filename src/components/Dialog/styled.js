@@ -44,4 +44,17 @@ export const Button = styled.div`
     border: 1px solid #aeaeae;
     box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
     cursor: pointer;
+    span {
+        display: inline-block;
+        padding-top: 3px;
+    }
+    svg {
+        display: inline-block;
+        vertical-align: middle;
+        width: 19px;
+        margin-left: 10px;
+        path {
+            fill: #3c3c3c;
+        }
+    }
 `;

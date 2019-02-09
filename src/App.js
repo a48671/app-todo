@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {sortTask} from './functions/sortTask';
+
 import {Wrapper} from './styledApp';
 
 import Dialog from './components/Dialog/Dialog';
@@ -7,7 +9,8 @@ import Task from './components/Task/Task';
 
 class App extends Component {
   state = {
-    tasks: []
+    tasks: [],
+    order: true
   }
 
   componentWillMount() {
@@ -24,8 +27,9 @@ class App extends Component {
     // save array with tasks in localStorage 
     const {tasks} = this.state;
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    console.log(tasks);
   }
-
+  currentTitle
   render() {
 
     const clickToRemoveHandler = (id) => {
@@ -78,7 +82,7 @@ class App extends Component {
       });
     }
 
-    const {tasks} = this.state;
+    const {tasks, order} = this.state;
 
     const renderTasks = () => { 
       return(
@@ -98,11 +102,24 @@ class App extends Component {
       );
     };
 
+    const clickToSortHandler = () => {
+      const {order} = this.state;
+
+      const sortedTasks = order ? sortTask(tasks) : sortTask(tasks).reverse();
+      
+      this.setState({
+        tasks: sortedTasks,
+        order: !order
+      });
+    }
+
     return (
       <Wrapper>
         <Dialog
           title="Tasks"
+          order={order}
           addTaskHandler={addTaskHandler}
+          clickToSortHandler={clickToSortHandler}
         >
           {renderTasks()}
         </Dialog>
