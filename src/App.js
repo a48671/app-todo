@@ -7,29 +7,19 @@ import Task from './components/Task/Task';
 
 class App extends Component {
   state = {
-    tasks: [
-      {
-        id: 0,
-        title: 'Title task 1',
-        checked: false
-      },
-      {
-        id: 1,
-        title: 'Title task 2',
-        checked: false
-      },
-      {
-        id: 2,
-        title: 'Title task 3',
-        checked: true
-      },
-      {
-        id: 3,
-        title: 'Title task 4',
-        checked: false
-      }
-    ]
+    tasks: []
   }
+
+  componentWillMount() {
+    // getting array tasks from localStorage
+    const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+    if(savedTasks) {
+      this.setState({
+        tasks: savedTasks
+      });
+    }
+  }
+
   render() {
 
     const clickToRemoveHandler = (id) => {
@@ -59,7 +49,9 @@ class App extends Component {
 
     const addTaskHandler = () => {
       const {tasks} = this.state;
-      if(tasks[tasks.length - 1].title === '') return;
+      if(tasks.length) {
+        if(tasks[tasks.length - 1].title === '') return;
+      }
       let updateTasks = tasks;
       updateTasks.push({
         id: tasks.length,
@@ -80,9 +72,9 @@ class App extends Component {
       });
     }
 
-    const renderTasks = () => {
-      const {tasks} = this.state;
+    const {tasks} = this.state;
 
+    const renderTasks = () => { 
       return(
         tasks.map((task, index) => {
           return(
@@ -99,6 +91,9 @@ class App extends Component {
         })
       );
     };
+
+    // save array with tasks in localStorage 
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 
     return (
       <Wrapper>

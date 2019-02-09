@@ -2,15 +2,17 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     position: relative;
-    padding: 10px 40px 10px 20px;
     font-family: sans-serif;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
     &:nth-child(even) {
         background-color: #e4e2e2;
     }
-`;
-
-export const Content = styled.div`
+    `;
+    
+    export const Content = styled.div`
+    padding: 10px 40px 10px 20px;
     position: relative;
+    background-color: ${props => props.isEdit ? '#fff' : 'initial'};
 `;
 
 export const Close = styled.div`
@@ -18,7 +20,7 @@ export const Close = styled.div`
     width: 12px;
     height: 12px;
     top: 0;
-    right: 0;
+    right: 20px;
     bottom: 0;
     left: auto;
     margin: auto 0;
@@ -56,7 +58,7 @@ export const Edit = styled.svg`
     position: absolute;
     width: 18px;
     top: 0;
-    right: -27px;
+    right: 40px;
     bottom: 0;
     left: auto;
     margin: auto 0;
@@ -117,6 +119,10 @@ export const Input = styled.input`
     font-size: 18px;
 `;
 
+export const Buttons = styled.div`
+    padding: 10px 20px;
+`;
+
 export const Button = styled.div`
     display: block;
     padding: 6px 20px;
@@ -127,7 +133,7 @@ export const Button = styled.div`
     border: 1px solid #aeaeae;
     box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
     cursor: pointer;
-    margin: 10px 0 0 auto;
+    margin: 0 0 0 auto;
     width: 100px;
     text-align: center;
     opacity: ${props => props.value ? '1' : '0.3'};

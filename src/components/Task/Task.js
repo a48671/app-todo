@@ -8,6 +8,7 @@ import {
   Title,
   Input,
   Content,
+  Buttons,
   Button,
   Edit
 } from './styled';
@@ -34,6 +35,11 @@ export default class Task extends PureComponent {
   state = {
     value: '',
     isEdit: false
+  }
+
+  componentWillMount(){
+    const {title} = this.props;
+    if(title === '') this.setState({isEdit: true});
   }
 
   render() {
@@ -74,7 +80,7 @@ export default class Task extends PureComponent {
     
     return (
         <Wrapper>
-          <Content>
+          <Content isEdit={isEdit}>
             <Checkbox 
               checked={checked}
               onClick={() => clickToCheckboxHandler(id)}
@@ -92,7 +98,7 @@ export default class Task extends PureComponent {
               </svg>
             </Checkbox>
             {
-              (title === '' || isEdit)
+              isEdit
               ? <Input 
                   placeholder="Input your new task" 
                   value={value}
@@ -121,8 +127,10 @@ export default class Task extends PureComponent {
               </Edit>
           </Content>
           {
-            (title === '' || isEdit)
-            ? <Button value={value} onClick={onClickConfirmHandler}>Confirm</Button>
+            isEdit
+            ? <Buttons>
+                <Button value={value} onClick={onClickConfirmHandler}>Confirm</Button>
+              </Buttons>
             : null
           }
         </Wrapper>
