@@ -4,17 +4,12 @@ export const Wrapper = styled.div`
     position: relative;
     font-family: sans-serif;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+    padding: 10px 40px 10px 20px;
     &:nth-child(even) {
         background-color: #e4e2e2;
     }
-    `;
-    
-    export const Content = styled.div`
-    padding: 10px 40px 10px 20px;
-    position: relative;
-    background-color: ${props => props.isEdit ? '#fff' : 'initial'};
 `;
-
+    
 export const Close = styled.div`
     position: absolute;
     width: 12px;
@@ -54,25 +49,6 @@ export const Close = styled.div`
     }
 `;
 
-export const Edit = styled.svg`
-    position: absolute;
-    width: 18px;
-    top: 0;
-    right: 20px;
-    bottom: 0;
-    left: auto;
-    margin: auto 0;
-    cursor: pointer;
-    path {
-        fill: #3c3c3c;
-    }
-    &:hover {
-        path {
-            fill: blue;
-        }
-    }
-`;
-
 export const Checkbox = styled.div`
     display: inline-block;
     vertical-align: middle;
@@ -83,6 +59,7 @@ export const Checkbox = styled.div`
     border-radius: 50%;
     background-color: ${props => props.checked ? 'green' : 'transparent'};
     cursor: pointer;
+    margin-right: 10px;
     svg {
         display: block;
         position: absolute;
@@ -98,26 +75,18 @@ export const Checkbox = styled.div`
     }
 `;
 
-export const Title = styled.div`
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 0 0 10px;
-    max-width: calc(100% - 26px);
-    color: ${props => props.checked ? 'green' : '#333'}
-    font-size: 18px;
-    overflow: hidden;
-`;
-
 export const Input = styled.input`
     display: inline-block;
     vertical-align: middle;
-    padding: 0 0 0 10px;
-    width: calc(100% - 26px);
+    width: calc(100% - 35px);
     color: #333;
     background-color: transparent;
     outline: none;
     border: none;
     font-size: 18px;
+    &:focus {
+        color: #000;
+    }
 `;
 
 export const Buttons = styled.div`

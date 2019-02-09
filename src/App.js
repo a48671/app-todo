@@ -27,27 +27,26 @@ class App extends Component {
     // save array with tasks in localStorage 
     const {tasks} = this.state;
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    console.log(tasks);
   }
   currentTitle
   render() {
 
-    const clickToRemoveHandler = (id) => {
+    const clickToRemoveHandler = (index) => {
       const {tasks} = this.state;
       let updateTasks = [];
-      tasks.map(task => {
-        if(task.id !== id) updateTasks.push(task);
+      tasks.map((task, i) => {
+        if(i !== index) updateTasks.push(task);
       });
       this.setState({
         tasks: updateTasks
       });
     };
 
-    const clickToCheckboxHandler = (id) => {
+    const clickToCheckboxHandler = (index) => {
       const {tasks} = this.state;
       let updateTasks = [];
-      tasks.map(task => {
-        if(task.id === id) {
+      tasks.map((task, i) => {
+        if(i === index) {
           task.checked = !task.checked;
         }
         updateTasks.push(task);
@@ -73,15 +72,6 @@ class App extends Component {
       });
     }
 
-    const addTaskConfirmHandler = (value, id) => {
-      const {tasks} = this.state;
-      let updateTasks = tasks;
-      updateTasks[id].title = value;
-      this.setState({
-        tasks: updateTasks
-      });
-    }
-
     const {tasks, order} = this.state;
 
     const renderTasks = () => { 
@@ -90,12 +80,12 @@ class App extends Component {
           return(
             <Task 
               key={index}
-              id={task.id}
+              index={index}
               title={task.title} 
               checked={task.checked}
               clickToCheckboxHandler={clickToCheckboxHandler}
               clickToRemoveHandler={clickToRemoveHandler}
-              addTaskConfirmHandler={addTaskConfirmHandler}
+              onChangeTaskHandler={onChangeTaskHandler}
             /> 
           );
         })
@@ -110,6 +100,18 @@ class App extends Component {
       this.setState({
         tasks: sortedTasks,
         order: !order
+      });
+    }
+
+    const onChangeTaskHandler = (e, index) => {
+      const currentValue = e.target.value;
+      const newTasks = tasks;
+      console.log(tasks);
+      console.log(index);
+      newTasks[index].title = currentValue;
+
+      this.setState({
+        tasks: newTasks
       });
     }
 
