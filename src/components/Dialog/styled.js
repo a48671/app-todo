@@ -13,29 +13,31 @@ export const Wrapper = styled.div`
 
 export const Header = styled.div`
     padding: 10px 20px;
-    font-face: sans-serif;
-    font-size: 27px;
-    text-transformation: uppercase;
+    font-family: sans-serif;
+    font-size: 22px;
+    text-transform: uppercase;
+    text-align: center;
     color: #fff;
     background-color: #3c3c3c;
 `;
 
 export const Content = styled.div`
     min-height: 300px;
+    background-color: #f2f3f2;
 `;
 
 export const Footer = styled.div`
     display: flex;
     padding: 10px 20px;
-    font-face: sans-serif;
+    font-family: sans-serif;
     color: #fff;
     background-color: #3c3c3c;
     justify-content: space-between;
 `;
 
 export const Button = styled.div`
-    padding: 10px 20px;
-    font-face: sans-serif;
+    padding: 6px 20px;
+    font-family: sans-serif;
     color: #3c3c3c;
     background-color: #fff;
     border-radius: 3px;

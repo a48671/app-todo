@@ -9,22 +9,22 @@ class App extends Component {
   state = {
     tasks: [
       {
-        id: 1,
+        id: 0,
         title: 'Title task 1',
         checked: false
       },
       {
-        id: 2,
+        id: 1,
         title: 'Title task 2',
         checked: false
       },
       {
-        id: 3,
+        id: 2,
         title: 'Title task 3',
         checked: true
       },
       {
-        id: 4,
+        id: 3,
         title: 'Title task 4',
         checked: false
       }
@@ -36,7 +36,7 @@ class App extends Component {
       const {tasks} = this.state;
       let updateTasks = [];
       tasks.map(task => {
-        if(task.id != id) updateTasks.push(task);
+        if(task.id !== id) updateTasks.push(task);
       });
       this.setState({
         tasks: updateTasks
@@ -57,6 +57,29 @@ class App extends Component {
       });
     };
 
+    const addTaskHandler = () => {
+      const {tasks} = this.state;
+      if(tasks[tasks.length - 1].title === '') return;
+      let updateTasks = tasks;
+      updateTasks.push({
+        id: tasks.length,
+        title: '',
+        checked: false
+      });
+      this.setState({
+        tasks: updateTasks
+      });
+    }
+
+    const addTaskConfirmHandler = (value, id) => {
+      const {tasks} = this.state;
+      let updateTasks = tasks;
+      updateTasks[id].title = value;
+      this.setState({
+        tasks: updateTasks
+      });
+    }
+
     const renderTasks = () => {
       const {tasks} = this.state;
 
@@ -70,6 +93,7 @@ class App extends Component {
               checked={task.checked}
               clickToCheckboxHandler={clickToCheckboxHandler}
               clickToRemoveHandler={clickToRemoveHandler}
+              addTaskConfirmHandler={addTaskConfirmHandler}
             /> 
           );
         })
@@ -80,6 +104,7 @@ class App extends Component {
       <Wrapper>
         <Dialog
           title="Tasks"
+          addTaskHandler={addTaskHandler}
         >
           {renderTasks()}
         </Dialog>

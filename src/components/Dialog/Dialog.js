@@ -13,16 +13,18 @@ export default class Dialog extends PureComponent {
 
     static propTypes = {
         title: PropTypes.string,
-        children: PropTypes.node
+        children: PropTypes.node,
+        addTaskHandler: PropTypes.func
     };
 
     static defaultProps = {
         title: '',
-        children: null
+        children: null,
+        addTaskHandler: () => null
     };
 
   render() {
-      const {title, children} = this.props;
+      const {title, children, addTaskHandler} = this.props;
     return (
       <Wrapper>
             <Header>{title}</Header>
@@ -31,7 +33,7 @@ export default class Dialog extends PureComponent {
             </Content>
             <Footer>
                 <Button>Sort</Button>
-                <Button>Add task</Button>
+                <Button onClick={addTaskHandler}>Add task</Button>
             </Footer>
       </Wrapper>
     )

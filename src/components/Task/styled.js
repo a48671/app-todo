@@ -3,10 +3,14 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
     position: relative;
     padding: 10px 40px 10px 20px;
-    font-face: sans-serif;
+    font-family: sans-serif;
     &:nth-child(even) {
         background-color: #e4e2e2;
     }
+`;
+
+export const Content = styled.div`
+    position: relative;
 `;
 
 export const Close = styled.div`
@@ -14,7 +18,7 @@ export const Close = styled.div`
     width: 12px;
     height: 12px;
     top: 0;
-    right: 20px;
+    right: 0;
     bottom: 0;
     left: auto;
     margin: auto 0;
@@ -44,6 +48,25 @@ export const Close = styled.div`
         &:after,
         &:before {
             background-color: red;
+        }
+    }
+`;
+
+export const Edit = styled.svg`
+    position: absolute;
+    width: 18px;
+    top: 0;
+    right: -27px;
+    bottom: 0;
+    left: auto;
+    margin: auto 0;
+    cursor: pointer;
+    path {
+        fill: #3c3c3c;
+    }
+    &:hover {
+        path {
+            fill: blue;
         }
     }
 `;
@@ -79,4 +102,34 @@ export const Title = styled.div`
     padding: 0 0 0 10px;
     max-width: calc(100% - 26px);
     color: ${props => props.checked ? 'green' : '#333'}
+    font-size: 18px;
+`;
+
+export const Input = styled.input`
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 0 0 10px;
+    max-width: calc(100% - 26px);
+    color: #333;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 18px;
+`;
+
+export const Button = styled.div`
+    display: block;
+    padding: 6px 20px;
+    font-family: sans-serif;
+    color: #3c3c3c;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #aeaeae;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    margin: 10px 0 0 auto;
+    width: 100px;
+    text-align: center;
+    opacity: ${props => props.value ? '1' : '0.3'};
+    ${props => props.value ? '' : 'pointer-events: none'};
 `;
