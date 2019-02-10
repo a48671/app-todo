@@ -17,16 +17,16 @@ class Dialog extends PureComponent {
         order: PropTypes.bool,
         title: PropTypes.string,
         children: PropTypes.node,
-        addTaskHandler: PropTypes.func,
-        clickToSortHandler: PropTypes.func
+        addTask: PropTypes.func,
+        sortTasks: PropTypes.func
     };
 
     static defaultProps = {
         order: true,
         title: '',
         children: null,
-        addTaskHandler: () => null,
-        clickToSortHandler: () => null
+        addTask: () => null,
+        sortTasks: () => null
     };
 
   render() {
@@ -34,9 +34,9 @@ class Dialog extends PureComponent {
     const {
         order,
         title, 
-        addTask, 
         children, 
-        clickToSortHandler, 
+        addTask, 
+        sortTasks
     } = this.props;
     
     return (
@@ -46,7 +46,7 @@ class Dialog extends PureComponent {
                 {children}
             </Content>
             <Footer>
-                <Button onClick={clickToSortHandler}>
+                <Button onClick={sortTasks}>
                     <span>Sort</span>
                     {
                         order
@@ -112,7 +112,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         addTask: () => dispatch({type: 'ADD_TASK'}),
-        sortTasks: () => dispatch({type: 'SORT_TASKS'}),
+        sortTasks: order => dispatch({type: 'SORT_TASKS', order}),
     }
 }
 

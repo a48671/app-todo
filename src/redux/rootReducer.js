@@ -9,8 +9,10 @@ export default function rootReducer(state = initialState, action) {
     
     const {tasks, order} = state;
 
-    switch(action.type) {
-
+    const {type, index, event} = action;
+    
+    switch(type) {
+        
         case 'ADD_TASK':
 
             if(tasks.length) {
@@ -19,38 +21,66 @@ export default function rootReducer(state = initialState, action) {
               }
             }
 
-            const addTaskState = Object.assign({}, state);
-            addTaskState.tasks = [
-                ...tasks,
-                {
-                    title: '',
-                    checked: false
-                }
-            ];
-
-            return addTaskState;
+            return ({
+                ...state,
+                tasks: [
+                    ...tasks,
+                    {
+                        title: '',
+                        checked: false
+                    }
+                ]
+            });
         
         case 'SORT_TASKS':
 
             const sortedTasks = order ? sortTasks(tasks) : sortTasks(tasks).reverse();
 
-            const sortedTasksState = Object.assign({}, state);
-            sortedTasksState.tasks = sortedTasks;
-
-            return sortedTasksState;
+            return ({
+                ...state,
+                tasks: sortedTasks,
+                order: !order
+            });
         
         case 'REMOVE_TASK':
-
-            const {index} = action; 
-
             
             const removedTaskInTasks = [...tasks];
             removedTaskInTasks.splice(index, 1)
             
-            const removeTaskState = Object.assign({}, state);
-            removeTaskState.tasks = removedTaskInTasks;
+            return ({
+                ...state,
+                tasks: removedTaskInTasks
+            });
 
-            return removeTaskState;
+        case 'CHANGE_TASK':
+
+            let currentValue = event.target.value;
+            let newTasks = [...tasks];
+            newTasks[index].title = currentValue;
+            
+            return({
+                ...state,
+                tasks: newTasks 
+            });
+
+        case 'GETTING_TASKS':
+
+            const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+            if(savedTasks) {
+                return({
+                    ...savedTasks
+                });
+            }
+
+            return({
+                ...state
+            });
+
+        case 'SAVE_TASKS':
+
+            localStorage.setItem('tasks', JSON.stringify(state));
+
+            return state;
 
         default: 
 

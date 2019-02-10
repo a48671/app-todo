@@ -10,10 +10,6 @@ import {Provider} from 'react-redux';
 
 const store = createStore(rootReducer);
 
-store.subscribe(() => {
-    console.log(store.getState());
-});
-
 const add = (
     <Provider store={store}>
         <App />

@@ -14,38 +14,33 @@ class Task extends PureComponent {
 
   static propTypes = {
     index: PropTypes.number,
-    title: PropTypes.string,
+    tasks: PropTypes.array,
     checked: PropTypes.bool,
     removeTask: PropTypes.func,
     clickToCheckboxHandler: PropTypes.func,
-    onChangeTaskHandler: PropTypes.func,
+    changeTask: PropTypes.func,
   };
 
   static defaultProps = {
       index: 0,
-      title: '',
+      tasks: [],
       checked: false,
       removeTask: () => null,
-      onChangeTaskHandler: () => null,
+      changeTask: () => null,
       clickToCheckboxHandler: () => null,
   };
 
   render() {
     const {
       index, 
-      title, 
+      tasks, 
       checked, 
       clickToCheckboxHandler, 
       removeTask,
-      onChangeTaskHandler
+      changeTask
     } = this.props;
 
-
-    const clickToEditHandler = () => {
-      this.setState({
-        isEdit: true
-      });
-    };
+    const title = tasks[index].title;
     
     return (
       <Wrapper>
@@ -69,7 +64,7 @@ class Task extends PureComponent {
         <TextareaAutosize
           placeholder="Input your new task" 
           value={title}
-          onChange={e => onChangeTaskHandler(e, index)}
+          onChange={e => changeTask(e, index)}
         />
         
         <Close onClick={() => removeTask(index)}/>
@@ -79,12 +74,16 @@ class Task extends PureComponent {
 }
 
 function mapStateToProps(state) {
-  return {};
+  const {tasks} = state;
+  return {
+    tasks
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-      removeTask: (index) => dispatch({type: 'REMOVE_TASK', index: index})
+      removeTask: index => dispatch({type: 'REMOVE_TASK', index}),
+      changeTask: (event, index) => dispatch({type: 'CHANGE_TASK', event, index})
   }
 }
 
