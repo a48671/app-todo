@@ -28,7 +28,14 @@ export default class Dialog extends PureComponent {
     };
 
   render() {
-      const {title, children, addTaskHandler, clickToSortHandler, order} = this.props;
+    const {
+        title, 
+        children, 
+        addTaskHandler, 
+        clickToSortHandler, 
+        order
+    } = this.props;
+    
     return (
       <Wrapper>
             <Header>{title}</Header>
