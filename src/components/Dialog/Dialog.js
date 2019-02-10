@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import {connect} from 'react-redux';
+
 import {
     Wrapper, 
     Header, 
@@ -9,7 +11,7 @@ import {
     Button
 } from './styled';
 
-export default class Dialog extends PureComponent {
+class Dialog extends PureComponent {
 
     static propTypes = {
         order: PropTypes.bool,
@@ -28,12 +30,13 @@ export default class Dialog extends PureComponent {
     };
 
   render() {
+
     const {
+        order,
         title, 
+        addTask, 
         children, 
-        addTaskHandler, 
         clickToSortHandler, 
-        order
     } = this.props;
     
     return (
@@ -92,12 +95,25 @@ export default class Dialog extends PureComponent {
                     }
                     
                 </Button>
-                <Button onClick={addTaskHandler}><span>Add task</span></Button>
+                <Button onClick={addTask}><span>Add task</span></Button>
             </Footer>
       </Wrapper>
     )
   }
 }
 
+function mapStateToProps(state) {
+    const {order} = state;
+    return {
+        order
+    }
+}
 
+function mapDispatchToProps(dispatch) {
+    return {
+        addTask: () => dispatch({type: 'ADD_TASK'}),
+        sortTasks: () => dispatch({type: 'SORT_TASKS'}),
+    }
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(Dialog);

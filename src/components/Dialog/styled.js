@@ -15,7 +15,6 @@ export const Header = styled.div`
     padding: 10px 20px;
     font-family: sans-serif;
     font-size: 22px;
-    text-transform: uppercase;
     text-align: center;
     color: #fff;
     background-color: #3c3c3c;
@@ -47,6 +46,7 @@ export const Button = styled.div`
     span {
         display: inline-block;
         padding-top: 3px;
+        pointer-events: none;
     }
     svg {
         display: inline-block;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-import {sortTask} from './functions/sortTask';
+import {connect} from 'react-redux';
 
 import {Wrapper} from './styledApp';
 
@@ -8,42 +7,27 @@ import Dialog from './components/Dialog/Dialog';
 import Task from './components/Task/Task';
 
 class App extends Component {
-  state = {
-    tasks: [],
-    order: true
-  }
 
   componentWillMount() {
     // getting array tasks from localStorage
     const savedTasks = JSON.parse(localStorage.getItem('tasks'));
-    if(savedTasks) {
-      this.setState({
-        tasks: savedTasks
-      });
-    }
+    // if(savedTasks) {
+    //   this.setState({
+    //     tasks: savedTasks
+    //   });
+    // }
   }
 
   componentDidUpdate() {
     // save array with tasks in localStorage 
-    const {tasks} = this.state;
+    const {tasks} = this.props;
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
-  currentTitle
+
   render() {
 
-    const clickToRemoveHandler = (index) => {
-      const {tasks} = this.state;
-      let updateTasks = [];
-      tasks.map((task, i) => {
-        if(i !== index) updateTasks.push(task);
-      });
-      this.setState({
-        tasks: updateTasks
-      });
-    };
-
     const clickToCheckboxHandler = (index) => {
-      const {tasks} = this.state;
+      const {tasks} = this.props;
       let updateTasks = [];
       tasks.map((task, i) => {
         if(i === index) {
@@ -56,23 +40,8 @@ class App extends Component {
       });
     };
 
-    const addTaskHandler = () => {
-      const {tasks} = this.state;
-      if(tasks.length) {
-        if(tasks[tasks.length - 1].title === '') return;
-      }
-      let updateTasks = tasks;
-      updateTasks.push({
-        id: tasks.length,
-        title: '',
-        checked: false
-      });
-      this.setState({
-        tasks: updateTasks
-      });
-    }
-
-    const {tasks, order} = this.state;
+    
+    const {tasks, order} = this.props;
 
     const renderTasks = () => { 
       return(
@@ -84,24 +53,12 @@ class App extends Component {
               title={task.title} 
               checked={task.checked}
               clickToCheckboxHandler={clickToCheckboxHandler}
-              clickToRemoveHandler={clickToRemoveHandler}
               onChangeTaskHandler={onChangeTaskHandler}
             /> 
           );
         })
       );
     };
-
-    const clickToSortHandler = () => {
-      const {order} = this.state;
-
-      const sortedTasks = order ? sortTask(tasks) : sortTask(tasks).reverse();
-      
-      this.setState({
-        tasks: sortedTasks,
-        order: !order
-      });
-    }
 
     const onChangeTaskHandler = (e, index) => {
       const currentValue = e.target.value;
@@ -119,9 +76,6 @@ class App extends Component {
       <Wrapper>
         <Dialog
           title="Tasks"
-          order={order}
-          addTaskHandler={addTaskHandler}
-          clickToSortHandler={clickToSortHandler}
         >
           {renderTasks()}
         </Dialog>
@@ -130,4 +84,19 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const {tasks, order} = state;
+  return {
+    tasks,
+    order
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addTask: () => dispatch({type: 'ADD_TASK'}),
+    removeTask: (index) => dispatch({type: 'REMOVE_TASK', index: index})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

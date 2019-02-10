@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import TextareaAutosize from 'react-autosize-textarea';
 
@@ -9,24 +10,24 @@ import {
   Checkbox,
 } from './styled';
 
-export default class Task extends PureComponent {
+class Task extends PureComponent {
 
   static propTypes = {
     index: PropTypes.number,
     title: PropTypes.string,
     checked: PropTypes.bool,
+    removeTask: PropTypes.func,
     clickToCheckboxHandler: PropTypes.func,
     onChangeTaskHandler: PropTypes.func,
-    clickToRemoveHandler: PropTypes.func
   };
 
   static defaultProps = {
       index: 0,
       title: '',
       checked: false,
-      clickToCheckboxHandler: () => null,
+      removeTask: () => null,
       onChangeTaskHandler: () => null,
-      clickToRemoveHandler: () => null
+      clickToCheckboxHandler: () => null,
   };
 
   render() {
@@ -35,7 +36,7 @@ export default class Task extends PureComponent {
       title, 
       checked, 
       clickToCheckboxHandler, 
-      clickToRemoveHandler,
+      removeTask,
       onChangeTaskHandler
     } = this.props;
 
@@ -71,8 +72,20 @@ export default class Task extends PureComponent {
           onChange={e => onChangeTaskHandler(e, index)}
         />
         
-        <Close onClick={() => clickToRemoveHandler(index)}/>
+        <Close onClick={() => removeTask(index)}/>
       </Wrapper>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      removeTask: (index) => dispatch({type: 'REMOVE_TASK', index: index})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Task);

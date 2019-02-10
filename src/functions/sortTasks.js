@@ -1,4 +1,4 @@
-export const sortTask = tasks => {
+export const sortTasks = tasks => {
     let arrayTitles = [];
     tasks.forEach(task => {
         const currentTitle = task.title;
