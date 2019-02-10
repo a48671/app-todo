@@ -6,6 +6,8 @@ import {Wrapper} from './styledApp';
 import Dialog from './components/Dialog/Dialog';
 import Task from './components/Task/Task';
 
+import {saveTasks, gettingTasks} from './redux/actions/actions';
+
 class App extends Component {
 
   componentWillMount() {
@@ -76,9 +78,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveTasks: () => dispatch({type: 'SAVE_TASKS'}),
-    gettingTasks: () => dispatch({type: 'GETTING_TASKS'}),
-    removeTask: (index) => dispatch({type: 'REMOVE_TASK', index: index})
+    saveTasks: () => dispatch(saveTasks()),
+    gettingTasks: () => dispatch(gettingTasks()),
   }
 }
 

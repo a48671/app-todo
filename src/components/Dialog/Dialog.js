@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
+import {addTask, sortTasks} from '../../redux/actions/actions';
 
 import {
     Wrapper, 
@@ -111,8 +112,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addTask: () => dispatch({type: 'ADD_TASK'}),
-        sortTasks: order => dispatch({type: 'SORT_TASKS', order}),
+        addTask: () => dispatch(addTask()),
+        sortTasks: order => dispatch(sortTasks(order)),
     }
 }
 

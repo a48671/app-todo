@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 
 import TextareaAutosize from 'react-autosize-textarea';
 
+import {removeTask, changeTask} from '../../redux/actions/actions';
+
 import {
   Wrapper,
   Close,
@@ -82,8 +84,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-      removeTask: index => dispatch({type: 'REMOVE_TASK', index}),
-      changeTask: (event, index) => dispatch({type: 'CHANGE_TASK', event, index})
+      removeTask: index => dispatch(removeTask(index)),
+      changeTask: (event, index) => dispatch(changeTask(event, index))
   }
 }
 
