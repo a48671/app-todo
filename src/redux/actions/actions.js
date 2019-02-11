@@ -13,12 +13,6 @@ export function saveTasks() {
     });
 }
 
-export function gettingTasks() {
-    return({
-        type: GETTING_TASKS
-    });
-}
-
 export function addTask() {
     return({
         type: ADD_TASK

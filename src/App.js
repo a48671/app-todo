@@ -11,8 +11,7 @@ import {saveTasks, gettingTasks} from './redux/actions/actions';
 class App extends Component {
 
   componentWillMount() {
-    // getting array tasks from localStorage
-    this.props.gettingTasks();
+    
   }
 
   componentDidUpdate() {
@@ -83,7 +82,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     saveTasks: () => dispatch(saveTasks()),
-    gettingTasks: () => dispatch(gettingTasks()),
   }
 }
 

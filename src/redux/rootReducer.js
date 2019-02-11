@@ -1,8 +1,17 @@
 import {sortTasks} from '../functions/sortTasks';
 
+// getting array tasks from localStorage
+let savedTasks = JSON.parse(localStorage.getItem('tasks'));
+
+if(!savedTasks && typeof(savedTasks) !== 'object') {
+    savedTasks = {
+        tasks: [],
+        order: true
+    }
+}   
+
 const initialState = {
-    tasks: [],
-    order: true
+    ...savedTasks
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -63,19 +72,6 @@ export default function rootReducer(state = initialState, action) {
             return({
                 ...state,
                 tasks: newTasks 
-            });
-
-        case 'GETTING_TASKS':
-
-            const savedTasks = JSON.parse(localStorage.getItem('tasks'));
-            if(savedTasks && typeof(savedTasks) === 'object') {
-                return({
-                    ...savedTasks
-                });
-            }
-
-            return({
-                ...state
             });
 
         case 'SAVE_TASKS':
