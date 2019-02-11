@@ -34,7 +34,11 @@ export default function rootReducer(state = initialState, action) {
         
         case 'SORT_TASKS':
 
-            const sortedTasks = order ? sortTasks(tasks) : sortTasks(tasks).reverse();
+            let cloneTasks = tasks[tasks.length - 1].title === ''
+                ? tasks.slice(0, tasks.length - 1)
+                : [...tasks];
+
+            const sortedTasks = order ? sortTasks(cloneTasks) : sortTasks(cloneTasks).reverse();
 
             return ({
                 ...state,
