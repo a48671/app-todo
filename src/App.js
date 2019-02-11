@@ -6,30 +6,50 @@ import {Wrapper} from './styledApp';
 import Dialog from './components/Dialog/Dialog';
 import Task from './components/Task/Task';
 
-import {saveTasks, gettingTasks} from './redux/actions/actions';
+import {gettingTasks} from './redux/actions/actions';
 
 class App extends Component {
 
   componentWillMount() {
-    
+    // getting array tasks from localStorage
+    let savedTasks = JSON.parse(localStorage.getItem('tasks'));
+
+    if(!savedTasks || typeof(savedTasks) !== 'object') {
+        savedTasks = {
+            tasks: [],
+            order: true
+        }
+    } 
+    console.log('componentWillMount');
+    this.props.gettingTasks(savedTasks);
   }
 
   componentDidUpdate() {
     // save array with tasks in localStorage 
-    localStorage.setItem('tasks', JSON.stringify(this.props.state));
+    try {
+      localStorage.setItem('tasks', JSON.stringify({
+        tasks: this.props.tasks,
+        order: this.props.order
+      }));
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   render() {
 
     const clickToCheckboxHandler = (index) => {
       const {tasks} = this.props;
-      let updateTasks = [];
-      tasks.map((task, i) => {
-        if(i === index) {
-          task.checked = !task.checked;
-        }
-        updateTasks.push(task);
-      });
+
+      const updateTasks = (
+        tasks.map((task, i) => {
+          if(i === index) {
+            task.checked = !task.checked;
+          } 
+          return task;
+        })
+      );
+      
       this.setState({
         tasks: updateTasks
       });
@@ -73,7 +93,6 @@ class App extends Component {
 function mapStateToProps(state) {
   const {tasks, order} = state;
   return {
-    state,
     tasks,
     order
   }
@@ -81,7 +100,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveTasks: () => dispatch(saveTasks()),
+    gettingTasks: tasks => dispatch(gettingTasks(tasks))
   }
 }
 

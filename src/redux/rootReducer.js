@@ -1,30 +1,21 @@
 import {sortTasks} from '../functions/sortTasks';
 
-// getting array tasks from localStorage
-let savedTasks = JSON.parse(localStorage.getItem('tasks'));
-
-if(!savedTasks && typeof(savedTasks) !== 'object') {
-    savedTasks = {
-        tasks: [],
-        order: true
-    }
-}   
-
 const initialState = {
-    ...savedTasks
+    tasks: [],
+        order: true
 }
 
 export default function rootReducer(state = initialState, action) {
     
     const {tasks, order} = state;
 
-    const {type, index, event} = action;
+    const {type, payload} = action;
     
     switch(type) {
         
         case 'ADD_TASK':
 
-            if(tasks.length) {
+            if(tasks && tasks.length) {
               if(tasks[tasks.length - 1].title === '') {
                   return state;
               }
@@ -54,7 +45,7 @@ export default function rootReducer(state = initialState, action) {
         case 'REMOVE_TASK':
             
             const removedTaskInTasks = [...tasks];
-            removedTaskInTasks.splice(index, 1)
+            removedTaskInTasks.splice(payload.index, 1)
             
             return ({
                 ...state,
@@ -63,11 +54,11 @@ export default function rootReducer(state = initialState, action) {
 
         case 'CHANGE_TASK':
 
-            event.persist();
+            payload.event.persist();
 
-            let currentValue = event.target.value;
+            let currentValue = payload.event.target.value;
             let newTasks = [...tasks];
-            newTasks[index].title = currentValue;
+            newTasks[payload.index].title = currentValue;
             
             return({
                 ...state,
@@ -79,6 +70,10 @@ export default function rootReducer(state = initialState, action) {
             localStorage.setItem('tasks', JSON.stringify(state));
 
             return state;
+
+        case 'GETTING_TASKS':
+
+            return ({...payload.tasks});
 
         default: 
 

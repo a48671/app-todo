@@ -1,17 +1,10 @@
 import {
-    SAVE_TASKS,
-    GETTING_TASKS,
     ADD_TASK,
     SORT_TASKS,
     REMOVE_TASK,
-    CHANGE_TASK
+    CHANGE_TASK,
+    GETTING_TASKS
 } from './actionTypes';
-
-export function saveTasks() {
-    return({
-        type: SAVE_TASKS
-    });
-}
 
 export function addTask() {
     return({
@@ -19,24 +12,35 @@ export function addTask() {
     });
 }
 
-export function sortTasks(order) {
+export function sortTasks() {
     return({
-        type: SORT_TASKS,
-        order
+        type: SORT_TASKS
     });
 }
 
 export function removeTask(index) {
     return({
         type: REMOVE_TASK,
-        index
+        payload: {index}
     });
 }
 
 export function changeTask(event, index) {
     return({
         type: CHANGE_TASK,
-        event, 
-        index
+        payload: {
+            event, 
+            index
+        }
+    });
+}
+
+export function gettingTasks(tasks) {
+    console.log('gettingTasks');
+    return({
+        type: GETTING_TASKS,
+        payload: {
+            tasks
+        }
     });
 }

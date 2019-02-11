@@ -69,6 +69,7 @@ class Task extends PureComponent {
           placeholder="Input your new task" 
           value={title}
           onChange={e => changeTask(e, index)}
+          onBlur={() => null}
         />
         
         <Close onClick={() => removeTask(index)}/>
