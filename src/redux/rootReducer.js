@@ -54,6 +54,8 @@ export default function rootReducer(state = initialState, action) {
 
         case 'CHANGE_TASK':
 
+            event.persist();
+
             let currentValue = event.target.value;
             let newTasks = [...tasks];
             newTasks[index].title = currentValue;
@@ -66,7 +68,7 @@ export default function rootReducer(state = initialState, action) {
         case 'GETTING_TASKS':
 
             const savedTasks = JSON.parse(localStorage.getItem('tasks'));
-            if(savedTasks) {
+            if(savedTasks && typeof(savedTasks) === 'object') {
                 return({
                     ...savedTasks
                 });

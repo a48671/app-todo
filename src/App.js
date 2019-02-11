@@ -37,22 +37,26 @@ class App extends Component {
     };
 
     
-    const {tasks, order} = this.props;
+    const {tasks} = this.props;
 
     const renderTasks = () => { 
-      return(
-        tasks.map((task, index) => {
-          return(
-            <Task 
-              key={index}
-              index={index}
-              title={task.title} 
-              checked={task.checked}
-              clickToCheckboxHandler={clickToCheckboxHandler}
-            /> 
-          );
-        })
-      );
+      try {
+        return(
+          tasks.map((task, index) => {
+            return(
+              <Task 
+                key={index}
+                index={index}
+                title={task.title} 
+                checked={task.checked}
+                clickToCheckboxHandler={clickToCheckboxHandler}
+              /> 
+            );
+          })
+        );
+      } catch {
+        return null;
+      }
     };
 
     return (
