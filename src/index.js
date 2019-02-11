@@ -17,12 +17,6 @@ const composeEnhancers =
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware()));
 
-store.subscribe(
-    () => {
-        console.log(store.getState())
-    }
-);
-
 const add = (
     <Provider store={store}>
         <App />

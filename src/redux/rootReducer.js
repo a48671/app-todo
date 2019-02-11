@@ -54,11 +54,8 @@ export default function rootReducer(state = initialState, action) {
 
         case 'CHANGE_TASK':
 
-            payload.event.persist();
-
-            let currentValue = payload.event.target.value;
             let newTasks = [...tasks];
-            newTasks[payload.index].title = currentValue;
+            newTasks[payload.index].title = payload.value;
             
             return({
                 ...state,

@@ -25,18 +25,17 @@ export function removeTask(index) {
     });
 }
 
-export function changeTask(event, index) {
+export function changeTask(index, value) {
     return({
         type: CHANGE_TASK,
         payload: {
-            event, 
-            index
+            index,
+            value
         }
     });
 }
 
 export function gettingTasks(tasks) {
-    console.log('gettingTasks');
     return({
         type: GETTING_TASKS,
         payload: {

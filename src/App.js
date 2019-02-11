@@ -20,7 +20,6 @@ class App extends Component {
             order: true
         }
     } 
-    console.log('componentWillMount');
     this.props.gettingTasks(savedTasks);
   }
 

@@ -18,6 +18,7 @@ class Task extends PureComponent {
     index: PropTypes.number,
     tasks: PropTypes.array,
     checked: PropTypes.bool,
+    onFocus: PropTypes.bool,
     removeTask: PropTypes.func,
     clickToCheckboxHandler: PropTypes.func,
     changeTask: PropTypes.func,
@@ -27,9 +28,15 @@ class Task extends PureComponent {
       index: 0,
       tasks: [],
       checked: false,
+      onFocus: false,
       removeTask: () => null,
       changeTask: () => null,
       clickToCheckboxHandler: () => null,
+  };
+
+  state = {
+    value: this.props.tasks[this.props.index].title,
+    onFocus: false
   };
 
   render() {
@@ -43,6 +50,23 @@ class Task extends PureComponent {
     } = this.props;
 
     const title = tasks[index].title;
+
+    const {onFocus, value} = this.state;
+
+    const onBlurHandler = () => {
+      this.setState({onFocus: false});
+      changeTask(index, value);
+    };
+
+    const onFocusHandler = () => {
+      this.setState({onFocus: true});
+    };
+
+    const changeTaskHandler = (event) => {
+      this.setState({
+        value: event.target.value
+      })
+    };
     
     return (
       <Wrapper title={title}>
@@ -67,9 +91,10 @@ class Task extends PureComponent {
 
         <TextareaAutosize
           placeholder="Input your new task" 
-          value={title}
-          onChange={e => changeTask(e, index)}
-          onBlur={() => null}
+          value={onFocus ? value : title}
+          onChange={e => {changeTaskHandler(e)}} 
+          onBlur={() => onBlurHandler()}
+          onFocus={() => onFocusHandler()}
         />
         
         <Close onClick={() => removeTask(index)}/>
@@ -88,7 +113,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
       removeTask: index => dispatch(removeTask(index)),
-      changeTask: (event, index) => dispatch(changeTask(event, index))
+      changeTask: (index, value) => dispatch(changeTask(index, value))
   }
 }
 
