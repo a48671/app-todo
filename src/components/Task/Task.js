@@ -14,6 +14,11 @@ import {
 
 class Task extends PureComponent {
 
+  state = {
+    value: '',
+    onFocus: false,
+  };
+
   static propTypes = {
     index: PropTypes.number,
     tasks: PropTypes.array,
@@ -33,13 +38,9 @@ class Task extends PureComponent {
       changeTask: () => null,
       clickToCheckboxHandler: () => null,
   };
-
-  state = {
-    value: this.props.tasks[this.props.index].title,
-    onFocus: false
-  };
-
+  
   render() {
+    
     const {
       index, 
       tasks, 
@@ -48,7 +49,7 @@ class Task extends PureComponent {
       removeTask,
       changeTask
     } = this.props;
-
+    
     const title = tasks[index].title;
 
     const {onFocus, value} = this.state;
@@ -59,7 +60,12 @@ class Task extends PureComponent {
     };
 
     const onFocusHandler = () => {
-      this.setState({onFocus: true});
+      if(!onFocus) {
+        this.setState({
+          value: title,
+          onFocus: true
+        });
+      }
     };
 
     const changeTaskHandler = (event) => {
