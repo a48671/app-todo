@@ -74,6 +74,9 @@ export const Checkbox = styled.div`
     background-color: ${props => props.checked ? 'green' : 'transparent'};
     cursor: pointer;
     margin-right: 10px;
+    pointer-events: ${props => props.title === '' ? 'none' : 'initial'};
+    opacity: ${props => props.title === '' ? '0' : '1'};
+    transition: 0.3s;
     svg {
         display: block;
         position: absolute;

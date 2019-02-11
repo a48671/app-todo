@@ -45,8 +45,10 @@ class Task extends PureComponent {
     const title = tasks[index].title;
     
     return (
-      <Wrapper>
+      <Wrapper title={title}>
+        
         <Checkbox 
+          title={title}
           checked={checked}
           onClick={() => clickToCheckboxHandler(index)}
         >
