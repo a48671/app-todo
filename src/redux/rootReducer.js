@@ -59,7 +59,7 @@ export default function rootReducer(state = initialState, action) {
         case 'CHANGE_TASK':
 
             let newTasks = [...tasks];
-            newTasks[payload.index].title = payload.value;
+            newTasks[payload.index].title = payload.value.trim();
             
             return({
                 ...state,
