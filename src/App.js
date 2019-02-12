@@ -6,7 +6,7 @@ import {Wrapper} from './styledApp';
 import Dialog from './components/Dialog/Dialog';
 import Task from './components/Task/Task';
 
-import {gettingTasks} from './redux/actions/actions';
+import {gettingTasks, removeTask, changeTask} from './redux/actions/actions';
 
 class App extends Component {
 
@@ -37,8 +37,9 @@ class App extends Component {
 
   render() {
 
+    const {tasks, removeTask, changeTask} = this.props;
+
     const clickToCheckboxHandler = (index) => {
-      const {tasks} = this.props;
 
       const updateTasks = (
         tasks.map((task, i) => {
@@ -54,9 +55,6 @@ class App extends Component {
       });
     };
 
-    
-    const {tasks} = this.props;
-
     const renderTasks = () => { 
       try {
         return(
@@ -66,7 +64,10 @@ class App extends Component {
                 key={index}
                 index={index}
                 title={task.title} 
+                tasks={tasks} 
                 checked={task.checked}
+                removeTask={removeTask}
+                changeTask={changeTask}
                 clickToCheckboxHandler={clickToCheckboxHandler}
               /> 
             );
@@ -99,7 +100,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    gettingTasks: tasks => dispatch(gettingTasks(tasks))
+    gettingTasks: tasks => dispatch(gettingTasks(tasks)),
+    removeTask: index => dispatch(removeTask(index)),
+    changeTask: (index, value) => dispatch(changeTask(index, value))
   }
 }
 

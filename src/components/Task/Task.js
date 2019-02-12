@@ -1,10 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 import TextareaAutosize from 'react-autosize-textarea';
-
-import {removeTask, changeTask} from '../../redux/actions/actions';
 
 import {
   Wrapper,
@@ -109,18 +106,4 @@ class Task extends PureComponent {
   }
 }
 
-function mapStateToProps(state) {
-  const {tasks} = state;
-  return {
-    tasks
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-      removeTask: index => dispatch(removeTask(index)),
-      changeTask: (index, value) => dispatch(changeTask(index, value))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Task);
+export default Task;
