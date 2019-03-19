@@ -86,6 +86,7 @@ export const Checkbox = styled.div`
         left: 1px;
         margin: auto;
         width: 16px;
+        pointer-events: none;
         path {
             fill: ${props => props.checked ? '#fff' : '#9c9b9b'};
         }
